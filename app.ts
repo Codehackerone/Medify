@@ -1,7 +1,7 @@
 import express from 'express';
 import { config } from 'dotenv';
 import { message } from './helpers/message';
-import { OK } from "./helpers/messageTypes";
+import { OK, NOT_FOUND } from "./helpers/messageTypes";
 import mongoose from 'mongoose';
 
 config();
@@ -26,6 +26,10 @@ console.log("MongoDB connected");
 
 app.get('/', (req:any, res:any) => {
     message(res, OK,'Welcome to Medify API');
+});
+
+app.all('*', (req:any, res:any) => {
+    message(res, NOT_FOUND,'Route does not exist');
 });
 
 app.listen(PORT, () => {
