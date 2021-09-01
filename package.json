@@ -10,13 +10,16 @@
     "start": "nodemon app.ts"
   },
   "dependencies": {
+    "@types/cors": "^2.8.12",
     "@types/joi": "^17.2.3",
     "@types/sanitize-html": "^2.3.2",
     "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.0.2"
+    "mongoose": "^6.0.2",
+    "sanitize-html": "^2.4.0"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",

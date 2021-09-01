@@ -29,7 +29,6 @@ const userSchema = new Schema({
     },
     dateofBirth:{
         type:Number,
-        required:true,
     },
     diseases:{
         type:Array,
