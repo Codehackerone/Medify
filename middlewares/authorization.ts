@@ -41,7 +41,7 @@ export const authorize = () => {
         //     "AuthenticationError"
         //   );
         // }
-        req.body.user = user;
+        req.user = user;
         next();
       } catch (err) {
         return messageError(

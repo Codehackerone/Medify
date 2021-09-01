@@ -37,3 +37,9 @@ export const userLoginSchema = Joi.object({
   email: Joi.string().required().escapeHTML(),
   password: Joi.string().required().escapeHTML(),
 });
+
+export const moreDetailsSchema = Joi.object({
+  sex: Joi.string().required().escapeHTML(),
+  dateofBirth: Joi.number().required(),
+  diseases:Joi.array()
+})
