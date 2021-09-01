@@ -1,4 +1,8 @@
-import { userRegistrationschema, userLoginSchema, moreDetailsSchema } from "../helpers/schemas";
+import {
+  userRegistrationschema,
+  userLoginSchema,
+  moreDetailsSchema,
+} from "../helpers/schemas";
 import { BAD_REQUEST } from "../helpers/messageTypes";
 import { messageError } from "../helpers/message";
 

@@ -1,6 +1,10 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import { registerService, findUserService, moreDetailsService } from "./users.service";
+import {
+  registerService,
+  findUserService,
+  moreDetailsService,
+} from "./users.service";
 import { message, messageCustom, messageError } from "../helpers/message";
 import {
   OK,
@@ -94,14 +98,19 @@ export const login = async (req: any, res: any) => {
   }
 };
 
-export const moreDetails= async (req: any, res: any) => {
+export const moreDetails = async (req: any, res: any) => {
   try {
     var user: any = await moreDetailsService(req.body, req.user._id);
     var return_object: any = {};
     return_object.user = user;
-    messageCustom(res, OK, "Your details are added successfully", return_object);
+    messageCustom(
+      res,
+      OK,
+      "Your details are added successfully",
+      return_object
+    );
   } catch (err: any) {
-      console.log(err);
-      messageError(res, SERVER_ERROR, "Hold on! We are looking into it", err);
+    console.log(err);
+    messageError(res, SERVER_ERROR, "Hold on! We are looking into it", err);
   }
 };

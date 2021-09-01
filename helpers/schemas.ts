@@ -41,5 +41,5 @@ export const userLoginSchema = Joi.object({
 export const moreDetailsSchema = Joi.object({
   sex: Joi.string().required().escapeHTML(),
   dateofBirth: Joi.number().required(),
-  diseases:Joi.array()
-})
+  diseases: Joi.array(),
+});

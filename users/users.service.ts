@@ -10,7 +10,7 @@ export const findUserService = async (param: any) => {
   return user;
 };
 
-export const moreDetailsService = async (userDetails:any, userId:any)=>{
-  var user= await User.findByIdAndUpdate(userId, userDetails, {new: true});
+export const moreDetailsService = async (userDetails: any, userId: any) => {
+  var user = await User.findByIdAndUpdate(userId, userDetails, { new: true });
   return user;
-}
+};
