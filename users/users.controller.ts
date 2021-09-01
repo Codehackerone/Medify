@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from "bcryptjs";
 import { registerService, findUserService } from "./users.service";
 import { message, messageCustom, messageError } from "../helpers/message";
+import { OK, CREATED, BAD_REQUEST, CONFLICT, SERVER_ERROR } from "../helpers/messageTypes";
 
 const expiry_length = 30 * 86400;
 const jwt_headers:any = {
@@ -21,22 +22,22 @@ export const register = async (req:any, res:any) => {
         user: user,
         auth_token: access_token,
       };
-      messageCustom(res, 200, "user created successfully", return_object);
+      messageCustom(res, CREATED, "User registration completed successfully.", return_object);
     } catch (err:any) {
       if (err.error === "ValidationError") {
-        messageError(res, 400, err.message, err.name);
+        messageError(res, BAD_REQUEST, err.message, err.name);
       } else {
         if (Number(err.code) === 11000) {
           messageError(
             res,
-            409,
+            CONFLICT,
             `${Object.keys(err.keyValue)[0]} '${
               Object.values(err.keyValue)[0]
             }' already exists.`,
-            "ValidationError"
+            err.name
           );
         } else {
-          messageError(res, 500, err.message, err.name);
+          messageError(res, SERVER_ERROR, err.message, err.name);
         }
       }
     }
@@ -45,8 +46,8 @@ export const register = async (req:any, res:any) => {
   export const login = async (req:any, res:any) => {
     try {
       if (!req.body.email || !req.body.password) {
-        var err = {
-          s_code: 400,
+        var err:any = {
+          statusObj: BAD_REQUEST,
           type: "ValidationError",
           name: "Both 'email' and 'password' are required",
         };
@@ -56,16 +57,16 @@ export const register = async (req:any, res:any) => {
       var password = req.body.password;
       const user:any = await findUserService({ email });
       if (!user) {
-        var err = {
-          s_code: 500,
+        var err:any = {
+          statusObj: BAD_REQUEST,
           type: "AuthenticationError",
           name: "Email or Password doesn't match.",
         };
         throw err;
       }
       if (!bcrypt.compareSync(password, user.password)) {
-        var err = {
-          s_code: 500,
+        var err:any = {
+          statusObj: BAD_REQUEST,
           type: "AuthenticationError",
           name: "Email or Password doesn't match.",
         };
@@ -79,13 +80,13 @@ export const register = async (req:any, res:any) => {
       var return_object:any = {};
       return_object.auth_token = access_token;
       return_object.user = user;
-      messageCustom(res, 200, "successfully logged in", return_object);
+      messageCustom(res, OK, "successfully logged in", return_object);
     } catch (err:any) {
       if (err.s_code !== undefined) {
-        messageError(res, err.s_code, err.name, err.type);
+        messageError(res, err.statusObj, err.name, err.type);
       } else {
         console.log(err);
-        messageError(res, 500, "error", err);
+        messageError(res, SERVER_ERROR, "Hold on! We are looking into it", err);
       }
     }
   };

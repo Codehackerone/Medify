@@ -1,22 +1,22 @@
-export const message = function (res:any, code:Number, message:String) {
-  var return_object = {
-    status_code: code,
+export const message = function (res:any, messageType:any, message:String) {
+  var return_object:any= {
     message: message,
   };
-  res.status(code).json(return_object);
+  return_object=Object.assign(return_object, messageType);
+  res.status(messageType.statusCode).json(return_object);
 };
 
-export const messageError = function (res:any, code:Number, message:String, err:any) {
-  var return_object = {
-    status_code: code,
+export const messageError = function (res:any,  messageType:any, message:String, err:any) {
+  var return_object:any= {
     message: message,
     error: err,
   };
-  res.status(code).json(return_object);
+  return_object=Object.assign(return_object, messageType);
+  res.status(messageType.statusCode).json(return_object);
 };
 
-export const messageCustom = function (res:any, code:Number, message:String, return_object:any) {
-  return_object.status_code = code;
+export const messageCustom = function (res:any, messageType:any, message:String, return_object:any) {
   return_object.message = message;
-  res.status(code).json(return_object);
+  return_object=Object.assign(return_object, messageType);
+  res.status(messageType.statusCode).json(return_object);
 };
