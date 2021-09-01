@@ -24,11 +24,11 @@ const extension = (joi:any) => ({
 
 const Joi = BaseJoi.extend(extension);
 
-export const user_schema = Joi.object({
-  name: Joi.string().required().escapeHTML(),
+export const userRegistrationschema = Joi.object({
+  first_name: Joi.string().required().escapeHTML(),
+  last_name: Joi.string().required().escapeHTML(),
   email: Joi.string().required().escapeHTML(),
   phone: Joi.string().required().escapeHTML(),
-  role: Joi.string().required().escapeHTML(),
   password: Joi.string().required().escapeHTML(),
   user: Joi.object(),
 });
