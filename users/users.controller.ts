@@ -45,14 +45,6 @@ export const register = async (req:any, res:any) => {
 
   export const login = async (req:any, res:any) => {
     try {
-      if (!req.body.email || !req.body.password) {
-        var err:any = {
-          statusObj: BAD_REQUEST,
-          type: "ValidationError",
-          name: "Both 'email' and 'password' are required",
-        };
-        throw err;
-      }
       var email = req.body.email;
       var password = req.body.password;
       const user:any = await findUserService({ email });
@@ -80,9 +72,9 @@ export const register = async (req:any, res:any) => {
       var return_object:any = {};
       return_object.auth_token = access_token;
       return_object.user = user;
-      messageCustom(res, OK, "successfully logged in", return_object);
+      messageCustom(res, OK, "Successfully logged in", return_object);
     } catch (err:any) {
-      if (err.s_code !== undefined) {
+      if (err.statusObj !== undefined) {
         messageError(res, err.statusObj, err.name, err.type);
       } else {
         console.log(err);
