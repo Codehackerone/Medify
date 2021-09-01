@@ -1,6 +1,6 @@
 import express from 'express';
 import { config } from 'dotenv';
-import { messager } from './helpers/message';
+import { message } from './helpers/message';
 import mongoose from 'mongoose';
 
 config();
@@ -24,7 +24,7 @@ console.log("MongoDB connected");
 });
 
 app.get('/', (req:any, res:any) => {
-    messager(res,200,'Welcome to Medify API');
+    message(res,200,'Welcome to Medify API');
 });
 
 app.listen(PORT, () => {

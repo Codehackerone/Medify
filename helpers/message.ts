@@ -1,4 +1,4 @@
-export const messager = function (res:any, code:Number, message:String) {
+export const message = function (res:any, code:Number, message:String) {
   var return_object = {
     status_code: code,
     message: message,
@@ -6,7 +6,7 @@ export const messager = function (res:any, code:Number, message:String) {
   res.status(code).json(return_object);
 };
 
-export const messager_err = function (res:any, code:Number, message:String, err:any) {
+export const messageError = function (res:any, code:Number, message:String, err:any) {
   var return_object = {
     status_code: code,
     message: message,
@@ -15,7 +15,7 @@ export const messager_err = function (res:any, code:Number, message:String, err:
   res.status(code).json(return_object);
 };
 
-export const messager_custom = function (res:any, code:Number, message:String, return_object:any) {
+export const messageCustom = function (res:any, code:Number, message:String, return_object:any) {
   return_object.status_code = code;
   return_object.message = message;
   res.status(code).json(return_object);
