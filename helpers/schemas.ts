@@ -1,7 +1,7 @@
 import BaseJoi from "joi";
 import sanitizeHtml from "sanitize-html";
 
-const extension = (joi:any) => ({
+const extension = (joi: any) => ({
   type: "string",
   base: joi.string(),
   messages: {
@@ -9,7 +9,7 @@ const extension = (joi:any) => ({
   },
   rules: {
     escapeHTML: {
-      validate(value:any, helpers:any) {
+      validate(value: any, helpers: any) {
         const clean = sanitizeHtml(value, {
           allowedTags: [],
           allowedAttributes: {},
