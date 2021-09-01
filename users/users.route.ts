@@ -8,3 +8,5 @@ Router.route("/login")
 
 Router.route("/register")
     .post(register);
+
+export default Router;

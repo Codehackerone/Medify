@@ -3,6 +3,7 @@ import { config } from 'dotenv';
 import { message } from './helpers/message';
 import { OK, NOT_FOUND } from "./helpers/messageTypes";
 import mongoose from 'mongoose';
+import userRouter from "./users/users.route";
 
 config();
 const app = express();
@@ -27,6 +28,8 @@ console.log("MongoDB connected");
 app.get('/', (req:any, res:any) => {
     message(res, OK,'Welcome to Medify API');
 });
+
+app.use('/user', userRouter);
 
 app.all('*', (req:any, res:any) => {
     message(res, NOT_FOUND,'Route does not exist');
