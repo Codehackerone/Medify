@@ -1,9 +1,11 @@
 import express from "express";
-import { register, login, moreDetails } from "./users.controller";
+import { register, login, moreDetails, verifyToken } from "./users.controller";
 import { validateRegistration, validateLogin } from "../middlewares/validator";
 import { authorize } from "../middlewares/authorization";
 
 const Router = express.Router();
+
+Router.route("/verifytoken").all(authorize(), verifyToken);
 
 Router.route("/login").post(validateLogin(), login);
 

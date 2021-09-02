@@ -20,6 +20,13 @@ const jwt_headers: any = {
   expiresIn: expiry_length,
 };
 
+export const verifyToken = async (req: any, res: any) => {
+  let return_object: any = {
+    user: req.user,
+  };
+  messageCustom(res, OK, "Token verified", return_object);
+};
+
 export const register = async (req: any, res: any) => {
   try {
     var user: any = await registerService(req.body);
