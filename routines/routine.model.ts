@@ -2,42 +2,42 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const routineSchema = new Schema({
-  user_id:{
+  user_id: {
     type: Schema.Types.ObjectId,
-    ref: "User"
+    ref: "User",
   },
-  medicineName:{
+  medicineName: {
     type: String,
-    required: true
+    required: true,
   },
-  medicineType:{
+  medicineType: {
     // Tablet, Capsule, Syrup, Cream, Drops, Injection
     type: String,
-    required: true
+    required: true,
   },
-  medicineDosage:{
+  medicineDosage: {
     type: String,
-    required: true
+    required: true,
   },
-  medicineDosageUnit:{
+  medicineDosageUnit: {
     // tablets, capsules, ml, times, drops
     type: String,
-    required: true
+    required: true,
   },
-  medicineFrequency:{
+  medicineFrequency: {
     // times a day, times a week, times a month
     type: String,
-    required: true
+    required: true,
   },
-  medicineFrequencyUnit:{
+  medicineFrequencyUnit: {
     // days, weeks, months
     type: String,
-    required: true
+    required: true,
   },
-  medicineStartTime:{
+  medicineStartTime: {
     type: Number,
-    required: true
-  }
+    required: true,
+  },
 });
 
 const Routine = mongoose.model("Routine", routineSchema);
