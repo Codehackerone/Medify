@@ -21,7 +21,10 @@ const jwt_headers: any = {
 };
 
 export const verifyToken = async (req: any, res: any) => {
-  message(res, OK, "Token verified");
+  let return_object:any ={
+    user:req.user
+  }
+  messageCustom(res, OK, "Token verified", return_object);
 }
 
 export const register = async (req: any, res: any) => {
