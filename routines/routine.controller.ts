@@ -38,3 +38,21 @@ export const createRoutine = async (req: any, res: any) => {
     messageError(res, SERVER_ERROR, "Error in creating routine", error);
   }
 };
+
+export const editRoutine = async (req: any, res: any) => {
+  try {
+    const response: any = await editRoutineService(req.params.id, req.body);
+    messageCustom(res, OK, "Routine Edited successfully", response);
+  } catch (error) {
+    messageError(res, SERVER_ERROR, "Error in editing routine", error);
+  }
+};
+
+export const deleteRoutine = async (req: any, res: any) => {
+  try {
+    const response: any = await deleteRoutineService(req.params.id);
+    messageCustom(res, OK, "Routine deleted successfully", response);
+  } catch (error) {
+    messageError(res, SERVER_ERROR, "Error in deleting routine", error);
+  }
+};

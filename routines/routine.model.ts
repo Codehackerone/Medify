@@ -38,6 +38,10 @@ const routineSchema = new Schema({
     type: Number,
     required: true,
   },
+  medicineEndTime: {
+    type: Number,
+    required: true,
+  },
 });
 
 const Routine = mongoose.model("Routine", routineSchema);
