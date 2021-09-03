@@ -45,4 +45,4 @@ export const validateCreateRoutine = () => {
       messageError(res, BAD_REQUEST, msg, "ValidationError");
     } else next();
   };
-}
+};

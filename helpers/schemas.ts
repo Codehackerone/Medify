@@ -53,4 +53,4 @@ export const createRoutineSchema = Joi.object({
   medicineFrequencyUnit: Joi.string().required().escapeHTML(),
   medicineStartTime: Joi.number().required(),
   medicineEndTime: Joi.number().required(),
-})
+});
