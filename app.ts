@@ -5,6 +5,7 @@ import { message } from "./helpers/message";
 import { OK, NOT_FOUND } from "./helpers/messageTypes";
 import mongoose from "mongoose";
 import userRouter from "./users/users.route";
+import routineRouter from "./routines/routine.route";
 
 config();
 
@@ -35,6 +36,7 @@ app.get("/", (req: any, res: any) => {
 });
 
 app.use("/api/users", userRouter);
+app.use("/api/routines", routineRouter);
 
 app.all("*", (req: any, res: any) => {
   message(res, NOT_FOUND, "Route does not exist");
