@@ -26,7 +26,7 @@ export const getRotineById = async (req: any, res: any) => {
     }
     messageCustom(res, OK, "Routines Found", return_object);
   } catch (error) {
-    messageError(res, SERVER_ERROR, "Error in findinf routine", error);
+    messageError(res, SERVER_ERROR, "Error in finding routine", error);
   }
 };
 
@@ -54,5 +54,21 @@ export const deleteRoutine = async (req: any, res: any) => {
     messageCustom(res, OK, "Routine deleted successfully", response);
   } catch (error) {
     messageError(res, SERVER_ERROR, "Error in deleting routine", error);
+  }
+};
+
+export const getRoutineByUserId = async (req: any, res: any) => {
+  try {
+    const response: any = await getRoutineByUserIdService(req.user._id);
+    let return_object: any = {
+      routine: response,
+    };
+    if (response.length === 0) {
+      message(res, OK, "No routines found for user");
+      return;
+    }
+    messageCustom(res, OK, "Routines Found", return_object);
+  } catch (error) {
+    messageError(res, SERVER_ERROR, "Error in finding routines", error);
   }
 };
