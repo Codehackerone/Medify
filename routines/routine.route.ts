@@ -4,11 +4,14 @@ import {
   createRoutine,
   editRoutine,
   deleteRoutine,
+  getRoutineByUserId,
 } from "./routine.controller";
 import { validateCreateRoutine } from "../middlewares/validator";
 import { authorize } from "../middlewares/authorization";
 
 const Router = express.Router();
+
+Router.route("/").get(authorize(), getRoutineByUserId);
 
 Router.route("/create").post(
   authorize(),
