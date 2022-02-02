@@ -3,8 +3,8 @@ import nodemailer from 'nodemailer';
 const transporter = nodemailer.createTransport({
     service: "hotmail",
     auth: {
-        user: "projectmedify@outlook.com",
-        pass: process.env.PASSWORD
+        user: process.env.EMAIL,
+        pass: process.env.EMAIL_PASSWORD
     }
 })
 
