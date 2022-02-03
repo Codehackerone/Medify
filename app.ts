@@ -6,12 +6,22 @@ import { OK, NOT_FOUND } from "./helpers/messageTypes";
 import mongoose from "mongoose";
 import userRouter from "./users/users.route";
 import routineRouter from "./routines/routine.route";
-
+import redisClient from "./utils/redisClient";
+import rateLimiter from "./middlewares/rateLimiter";
 config();
 
 const app = express();
 const PORT = process.env.PORT;
 const MONGODB_URI: any = String(process.env.MONGO_URI);
+const RATE_LIMIT_DURATION = parseInt(
+  process.env.RATE_LIMIT_DURATION || "60000",
+  10
+);
+const MAX_REQ_PER_DURATION = parseInt(
+  process.env.MAX_REQ_PER_DURATION || "1000",
+  10
+);
+
 const connectOptions: any = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -26,6 +36,22 @@ try {
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(
+  rateLimiter({
+    db: redisClient,
+    duration: RATE_LIMIT_DURATION,
+    errorMessage: "Sometimes You Just Have to Slow Down.",
+    id: (ctx) => ctx.ip,
+    headers: {
+      remaining: "Rate-Limit-Remaining",
+      reset: "Rate-Limit-Reset",
+      total: "Rate-Limit-Total",
+    },
+    max: MAX_REQ_PER_DURATION,
+    disableHeader: false,
+  })
+);
 
 mongoose.connection.once("open", () => {
   console.log("MongoDB connected");
