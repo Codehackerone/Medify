@@ -11,7 +11,10 @@
   },
   "dependencies": {
     "@types/cors": "^2.8.12",
+    "@types/dotenv": "^8.2.0",
     "@types/joi": "^17.2.3",
+    "@types/morgan": "^1.9.3",
+    "@types/nodemailer": "^6.4.4",
     "@types/sanitize-html": "^2.3.2",
     "async-ratelimiter": "^1.3.0",
     "bcryptjs": "^2.4.3",
@@ -21,6 +24,8 @@
     "ioredis": "^4.28.4",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.2",
+    "morgan": "^1.10.0",
+    "nodemailer": "^6.7.2",
     "sanitize-html": "^2.4.0"
   },
   "devDependencies": {
