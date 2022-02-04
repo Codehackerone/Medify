@@ -16,32 +16,31 @@ const routineSchema = new Schema({
     required: true,
   },
   medicineDosage: {
-    type: String,
+    //How many/much in one take.
+    type: Number,
     required: true,
   },
   medicineDosageUnit: {
-    // tablets, capsules, ml, times, drops
+    // units, ml, mg etc
     type: String,
     required: true,
   },
-  medicineFrequency: {
-    // times a day, times a week, times a month
+  additionalInformation: {
+    // units, ml, mg etc
     type: String,
-    required: true,
   },
-  medicineFrequencyUnit: {
-    // days, weeks, months
-    type: String,
-    required: true,
-  },
-  medicineStartTime: {
+  medicineStartDate: {
     type: Number,
     required: true,
   },
-  medicineEndTime: {
+  medicineEndData: {
     type: Number,
     required: true,
   },
+  timesOfDay: [{
+    type: String,
+    required: true
+}],
 });
 
 const Routine = mongoose.model("Routine", routineSchema);
