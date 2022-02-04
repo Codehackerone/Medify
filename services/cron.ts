@@ -2,7 +2,7 @@ const cron = require('node-cron');
 const Routine = require('../models/routine.model');
 
 // run a cron job every minute
-cron.schedule('* * * * *', async () => {
+export const checkEveryMinute= cron.schedule('* * * * *', async () => {
     console.log('running a task every minute');
 
     // Since I did not know about the time format I return medicines between the start and end time
