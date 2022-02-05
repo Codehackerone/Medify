@@ -16,24 +16,29 @@ const routineSchema = new Schema({
     required: true,
   },
   medicineDosage: {
-    //How many/much in one take.
-    type: Number,
+    type: String,
     required: true,
   },
   medicineDosageUnit: {
-    // units, ml, mg etc
+    // tablets, capsules, ml, times, drops
     type: String,
     required: true,
   },
-  additionalInformation: {
-    // units, ml, mg etc
+  medicineFrequency: {
+    // times a day, times a week, times a month
     type: String,
+    required: true,
   },
-  medicineStartDate: {
+  medicineFrequencyUnit: {
+    // days, weeks, months
+    type: String,
+    required: true,
+  },
+  medicineStartTime: {
     type: Number,
     required: true,
   },
-  medicineEndData: {
+  medicineEndTime: {
     type: Number,
     required: true,
   },
