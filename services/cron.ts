@@ -4,9 +4,12 @@ const User = require('../users/users.model');
 //start a cron job every minute
 const remind = nodeCron.schedule('* * * * *', async () => {
     var currentdate = new Date();
+
+    //get current time
     const time = currentdate.getHours() + ":" + currentdate.getMinutes();
 
     const notificationData = await User.aggregate([
+        //bring routine data for all users
         {
             '$lookup': {
                 from: 'routines',
@@ -15,6 +18,7 @@ const remind = nodeCron.schedule('* * * * *', async () => {
                 as: 'routines'
             }
         },
+        //getting relevant data
         {
             $project: {
                 'routines.medicineName': 1,
@@ -40,6 +44,7 @@ const remind = nodeCron.schedule('* * * * *', async () => {
                 }
             }
         },
+        //filters out users who should not be notified
         {
             $match: {
                 'shouldNotify': true,
@@ -47,6 +52,7 @@ const remind = nodeCron.schedule('* * * * *', async () => {
                 'routines.medicineEndTime': { $gte: currentdate.getDate() },
             }
         },
+        //relevant details
         {
             $project: {
                 'routines.medicineName': 1,
