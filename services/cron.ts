@@ -1,32 +1,67 @@
-const cron = require('node-cron');
-const Routine = require('../models/routine.model');
+const nodeCron = require('node-cron');
+const User = require('../users/users.model');
 
-// run a cron job every minute
-export const checkEveryMinute= cron.schedule('* * * * *', async () => {
-    console.log('running a task every minute');
+//start a cron job every minute
+const remind = nodeCron.schedule('* * * * *', async () => {
+    var currentdate = new Date();
+    const time = currentdate.getHours() + ":" + currentdate.getMinutes();
 
-    // Since I did not know about the time format I return medicines between the start and end time
-    const drugsToBeNotified = await Routine.aggregate([
+    const notificationData = await User.aggregate([
         {
-            "$match": {
-                //matching the current time with the start and end time of the medicine
-                "medicineStartTime": {
-                    "$lte": new Date().getTime()
-                },
-                "medicineEndTime": {
-                    "$gte": new Date().getTime()
+            '$lookup': {
+                from: 'routines',
+                localField: '_id',
+                foreignField: 'user_id',
+                as: 'routines'
+            }
+        },
+        {
+            $project: {
+                'routines.medicineName': 1,
+                'routines.medicineType': 1,
+                'routines.medicineDosage': 1,
+                'routines.medicineDosageUnit': 1,
+                'routines.timesOfDay': 1,
+                'first_name': 1,
+                'last_name': 1,
+                'email': 1,
+                'phone': 1,
+                'shouldNotify': {
+                    '$cond': {
+                        'if': {
+                            '$in': [
+                                time,
+                                "$routines.timesOfDay"
+                            ]
+                        },
+                        then: true,
+                        else: false
+                    }
                 }
             }
         },
         {
-            //returning details relevant to notifying the user
-            "$project": {
-                "user_id": 1,
-                "medicineName": 1,
-                "medicineType": 1,
-                "medicineDosage": 1,
-                "medicineDosageUnit": 1,
+            $match: {
+                'shouldNotify': true,
+                'routines.medicineStartTime': { $lte: currentdate.getDate() },
+                'routines.medicineEndTime': { $gte: currentdate.getDate() },
+            }
+        },
+        {
+            $project: {
+                'routines.medicineName': 1,
+                'routines.medicineType': 1,
+                'routines.medicineDosage': 1,
+                'routines.medicineDosageUnit': 1,
+                'first_name': 1,
+                'last_name': 1,
+                'email': 1,
+                'phone': 1
             }
         }
     ]);
+
+    return notificationData
 });
+
+module.exports = remind;
