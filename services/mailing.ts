@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer';
+const nodemailer= require('nodemailer');
 
 const transporter = nodemailer.createTransport({
     service: "hotmail",
@@ -9,7 +9,7 @@ const transporter = nodemailer.createTransport({
 })
 
 exports.sendMail = (mailOptions: any) => {
-    transporter.sendMail(mailOptions, (error, info) => {
+    transporter.sendMail(mailOptions, (error: any, info: any) => {
         if (error) {
             console.log(error);
         } else {
